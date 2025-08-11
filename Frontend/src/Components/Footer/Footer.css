@@ -1,0 +1,14 @@
+.footer-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5%;
+    color: #FAFBFB;
+    font-family: 'inter', sans-serif;
+    border-top: 1px solid #FAFBFB;
+    padding: 1rem;
+}
+
+.footer-logo {
+    width: 25%;
+}

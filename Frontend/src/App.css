@@ -1,0 +1,17 @@
+.content-cont {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    flex: 1;
+
+}
+
+Header {
+    min-height: 200px;
+}
+
+Footer {
+    min-height: 100px;
+}
+
