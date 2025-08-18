@@ -1,30 +1,38 @@
 import express from 'express';
 import db from "../db/connection.js";
 import  {ObjectId} from 'mongodb';
-import portfolio
-    from "../../Frontend/src/Pages/Portfolio.js";
 const router = express.Router();
 
 const getPortfolioCollection = () => db.collection('CryptoHeld');
 const getHistoryCollection = () => db.collection('CryptoHistory');
 
+
+router.get('/', async (req, res) => {
+    try {
+        let collection = getPortfolioCollection();
+        let results = await collection.find().toArray();
+        res.status(200).send(results);
+    } catch (err) {
+        res.status(500).send("Error getting CryptoHeld"); 
+    }
+})
+
 router.post('/buy', async (req, res) => {
     try {
-        const {
-            name,
-            img,
-            purchase_price,
-            current_price,
-            volume,
-            total_value,
-            percentage_change,
-            price_change,
-            date,
-        } = req.body;
+        const {id, name, volume} = req.body;
 
         const portfolioCol = getPortfolioCollection();
         const historyCol = getHistoryCollection();
 
+        const response = await fetch (`https://api.coingecko.com/api/v3/coins/${id.toLowerCase()}`);
+        const coinData = await response.json();
+        
+        const current_price = coinData.market_data.current_price.usd;
+        const img = coinData.image.large;
+        const percentage_change = coinData.market_data.price_change_percentage_24h;
+        const price_change = coinData.market_data.price_change_24h;
+        const total_value = current_price * volume;
+        
         const existing = await portfolioCol.findOne({name});
 
         if (existing) {
@@ -37,35 +45,36 @@ router.post('/buy', async (req, res) => {
                         volume: newVolume,
                         total_value: newTotalValue,
                         current_price,
-                        purchase_price,
+                        purchase_price: current_price,
                         percentage_change,
                         price_change,
-                        date,
+                        date: new Date(),
                     }
                 }
             );
         } else {
             await portfolioCol.insertOne({
+                id,
                 name,
                 img,
-                purchase_price,
+                purchase_price: current_price,
                 current_price,
                 volume,
                 total_value,
                 percentage_change,
                 price_change,
-                date
-            });
+                date: new Date(),
+            })
         }
 
         await historyCol.insertOne({
             name,
             img,
             buy_sell: "buy",
-            purchase_price,
+            purchase_price: current_price,
             sell_price: null,
             volume,
-            date,
+            date: new Date(),
         })
 
         res.status(200).send({message: "Buy Successful"});
@@ -92,7 +101,8 @@ router.post('/buy', async (req, res) => {
              }
              
              const newVolume = existing.volume - volume;
-             if (newVolume < 0) {
+             
+             if (newVolume > 0) {
                  const newTotalValue = sell_price * newVolume;
                  await portfolioCol.updateOne(
                      {_id: existing._id}, {

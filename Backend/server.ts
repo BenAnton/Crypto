@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import coinGeckoRouter from './routes/CoinGeckoAPI.js';
+import portfolioRoutes from "./routes/cryptoHeld.js";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 5050;
 app.use(cors());
 app.use(express.json());
 app.use('/coins', coinGeckoRouter)
+app.use('/portfolio', portfolioRoutes)
 
 mongoose.connect(process.env.MONGO_URI || "", {
 } as mongoose.ConnectOptions)

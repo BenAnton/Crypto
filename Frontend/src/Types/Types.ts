@@ -57,23 +57,24 @@ export type CoinListCoin = {
 }
 
 export type cryptoItemHeld = {
-    name: String,
-    img: String,
-    purchase_price: Number,
-    current_price: Number,
-    volume: Number,
-    total_value: Number,
-    percentage_change: Number,
-    price_change: Number,
-    date: String,
+    id: string,
+    name: string,
+    img: string,
+    purchase_price: number,
+    current_price: number,
+    volume: number,
+    total_value: number,
+    percentage_change: number,
+    price_change: number,
+    date: string,
 };
 
 export type cryptoHistoryItem = {
-    name: String,
-    img: String,
-    buy_sell: Boolean,
-    purchase_price: Number,
-    sell_price: Number,
-    volume: Number,
-    date: String,
+    name: string,
+    img: string,
+    buy_sell: boolean,
+    purchase_price: number,
+    sell_price: number,
+    volume: number,
+    date: string,
 }
