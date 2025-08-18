@@ -1,0 +1,21 @@
+.options-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.option-select {
+    height: 25px;
+    width: 200px;
+    
+}
+
+.option-button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+}
+
