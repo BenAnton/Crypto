@@ -1,10 +1,10 @@
-.coin-card-cont {
+.coin-hist-cont {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.coin-card {
+.coin-hist-card {
     border: 1px solid white;
     display: flex;
     justify-content: space-between;
@@ -14,22 +14,17 @@
     width: 90%;
     margin-inline: auto;
     text-align: center;
-    
 }
 
-.coin-card-item {
+.history-card-item {
     width: 20%;
-    
+    text-align: center;
 }
 
-.update-button-prices {
-    width: 100%;
-}
-
-.button-flex {
+.history-options-flex {
     display: flex;
     justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
     margin-bottom: 1rem;
-    width: 75%;
-    margin-inline: auto;
 }

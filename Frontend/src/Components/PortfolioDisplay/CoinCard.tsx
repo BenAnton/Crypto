@@ -2,32 +2,20 @@ import type {
      cryptoItemHeld
 } from "../../Types/Types.ts";
 import "./PortfolioDisplay.css"
-import {
-    useEffect,
-    useState,
-} from "react";
+
+
 interface CoinCardProps {
-    coin: cryptoItemHeld
+    coin: cryptoItemHeld,
+    coinPrices: {[key: string] : {usd: number}}
 }
 
-function CoinCard({coin}: CoinCardProps) {
-    const [currentPrice, setCurrentPrice] = useState<number>(coin.current_price);
-
-    useEffect(() => {
-        const fetchCurrentPrice = async () => {
-            try {
-                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coin.id.toLowerCase()}`);
-                const data = await response.json();
-                setCurrentPrice(data.market_data.current_price.usd);
-            } catch (error) {
-                console.error(error);
-        }
-        };
-        fetchCurrentPrice();
-    }, [coin.id]);
+function CoinCard({coin, coinPrices}: CoinCardProps) {
+    const currentPrice = coinPrices[coin.id]?.usd || 0;
     
     const total_value = coin.volume * currentPrice;
     const price_change_since_buy = (currentPrice * coin.volume) - (coin.purchase_price * coin.volume); 
+    
+    
     
     return (
         <div className="coin-card">

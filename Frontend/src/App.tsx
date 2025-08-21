@@ -13,17 +13,19 @@ function App() {
     <>
     <Router>
         <Header/>
-        <CoinsProvider>
+        
         <div className="content-cont">
                 
             <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/portfolio" element={<Portfolio/>}/>
+                    <Route path="/" element={<CoinsProvider><Home/></CoinsProvider>}/>
+                
+                    <Route path="/portfolio" element={<CoinsProvider><Portfolio/></CoinsProvider>}/>
+                
                     <Route path="/history" element={<History/>}/>
             </Routes>
                
     </div> 
-        </CoinsProvider>
+        
     <Footer/>
         </Router>
         

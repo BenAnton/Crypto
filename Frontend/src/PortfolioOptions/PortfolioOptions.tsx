@@ -8,12 +8,14 @@ function PortfolioOptions() {
     const {coins, loading} = useCoins();
     const [selectedCoin, setSelectedCoin] = useState<CoinListCoin | null>(null);
     const [volume, setVolume] = useState<number>(0);
-    
+
     if (loading) return <p>Loading latest coin data...</p>;
+    
     
     const handleBuy = async () => {
         if (!selectedCoin) return alert("Please select a coin");
         console.log(selectedCoin);
+        console.log(selectedCoin.id);
         const payload = {
             id: selectedCoin.id,
             name: selectedCoin.name,
@@ -36,9 +38,44 @@ function PortfolioOptions() {
         }
     };
     
+    const handleSell = async () => {
+        if(!selectedCoin) return alert("Please select a coin");
+        console.log(selectedCoin);
+        const payload = {
+            id: selectedCoin.id,
+            name: selectedCoin.name,
+            volume, 
+        };
+        
+        try {
+            const response = await fetch("http://localhost:5050/portfolio/sell", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+            const data = await response.json();
+            alert(data.message);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    const handleDeleteAll = async () => {
+        try {
+            const response = await fetch(`http://localhost:5050/portfolio/all`, {
+                method: "DELETE",
+            });
+            const data = await response.json();
+            alert(data.message);
+        } catch (error) {}
+    }
+    
     return (
         <div>
             <div className="options-cont">
+                <div className="option-first">
             <select className="option-select" onChange={(e) => setSelectedCoin(coins.find((c) => c.id === e.target.value) || null)}>
                 <option>Select Coin</option>
                 {coins.map((coin: CoinListCoin, index: number) => (
@@ -46,15 +83,19 @@ function PortfolioOptions() {
                 ))}
             </select>
                 
-                <input type="number" placeholder="Volume" onChange={(e) => setVolume(Number(e.target.value))}/>
+                <input className="option-select" type="number" placeholder="Volume" onChange={(e) => setVolume(Number(e.target.value))}/>
+                </div>
+    <div className="option-second">
+
+        <button onClick={handleBuy}>Buy</button>
+        <button onClick={handleSell}>Sell</button>
+        <button onClick={handleDeleteAll}>Reset Portfolio</button>
+    </div>
                 
-            <div className="option-button-grid">
-                <button onClick={handleBuy}>Buy</button>
-                <button>Sell</button>
-                <button>Edit Holding</button>
-                <button>Delete Holding</button>
+                
             </div>
-            </div>
+                
+ 
         </div>
     )
 }

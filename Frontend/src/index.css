@@ -10,3 +10,32 @@ html, body {
   width: 100%;
   background-color: #151D32;
 }
+
+.content-cont {
+  margin-block: 1rem;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-weight: 900;
+}
+
+button {
+  cursor: pointer;
+  width: 200px;
+  height: 35px;
+  color: #151D32;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+button:hover {
+  color: white;
+  background-color: #151D32;
+  border: 1px solid white;
+}

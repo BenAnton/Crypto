@@ -9,7 +9,6 @@ function CoinList() {
     
     return (
         <>
-        <h2 className="coinlist-title">Current Prices</h2>
         <div className="coin-list-cont">
             
             

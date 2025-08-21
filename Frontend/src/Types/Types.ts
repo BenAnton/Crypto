@@ -70,6 +70,7 @@ export type cryptoItemHeld = {
 };
 
 export type cryptoHistoryItem = {
+    _id: string,
     name: string,
     img: string,
     buy_sell: boolean,
