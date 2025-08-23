@@ -1,4 +1,6 @@
 import {createContext, useContext, useState, useEffect} from 'react';
+import {useCurrency} from "./currencyContext";
+import type {ReactNode} from "react";
 
 interface CoinListCoin {
     "id": string,
@@ -37,13 +39,15 @@ interface CoinsContextValue {
 
 const CoinsContext = createContext<CoinsContextValue | undefined>(undefined);
 
-export const CoinsProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+export const CoinsProvider = ({ children }: {children: ReactNode }) => {
     const [coins, setCoins] = useState<CoinListCoin[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
+    const {currency} = useCurrency();
+    
+    
     useEffect(() => {
-        fetch("http://localhost:5050/coins/coingecko")
+        fetch(`http://localhost:5050/coins/coingecko?currency=${currency}`)
             .then((res) => {
                 if (!res.ok) throw new Error ("Failed to fetch data");
                 return res.json();
@@ -56,7 +60,7 @@ export const CoinsProvider: React.FC<{ children: React.ReactNode }> = ({children
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [currency]);
     
     return (
         <CoinsContext.Provider value={{coins, loading, error}}>{children}</CoinsContext.Provider>

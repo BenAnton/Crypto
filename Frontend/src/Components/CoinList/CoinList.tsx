@@ -1,9 +1,18 @@
 import "./CoinList.css"
 import {useCoins} from "../../Context/coinsContext.tsx";
+import {
+    useCurrency
+} from "../../Context/currencyContext.tsx";
+import {useCurrencyConvertor} from "../../Helper-Functions/ExchangeHook.tsx";
+import Alert from "../Alert/Alert.tsx";
+import {useState} from "react";
 
 function CoinList() {
-
+    const [showAlert, setShowAlert] = useState<boolean>(true);
     const {coins, loading} = useCoins();
+    const {currency} = useCurrency();
+    const {getDisplayPrice, getDisplayLargeNumber, getDisplayPercentage} = useCurrencyConvertor();
+    
     
     if (loading) return <p>Loading latest coin data...</p>;
     
@@ -28,11 +37,11 @@ function CoinList() {
                     {coins.map((coin, index) => (
                     <tr className="table-row" key={index}>
                         <td><img src ={coin.image} alt="coin logo"/></td>
-                        <td>{coin.id}</td>
-                        <td>${coin.current_price}</td>
-                        <td>${coin.market_cap}</td>
-                        <td>${coin.total_volume}</td>
-                        <td>{coin.price_change_percentage_24h}%</td>
+                        <td>{coin.id.toUpperCase()}</td>
+                        <td>{getDisplayPrice(coin.current_price, currency)}</td>
+                        <td>{getDisplayLargeNumber(coin.market_cap, currency)}</td>
+                        <td>{getDisplayLargeNumber(coin.total_volume, currency)}</td>
+                        <td>{getDisplayPercentage(coin.price_change_percentage_24h)}</td>
                     </tr>
                         
                     ))}
@@ -42,7 +51,10 @@ function CoinList() {
                 
          
                 </div>
-            </>
+            {showAlert && (
+            <Alert title={"Alert Message"} message={"This is an alert message."} isOpen={showAlert} onClose={() => setShowAlert(false)}/>
+    )}
+                </>
     )
 }
 

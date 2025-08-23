@@ -5,16 +5,26 @@
 }
 
 .coin-card {
-    border: 1px solid white;
+    border: 1px solid var(--secondary-color);
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    color: white;
+    color: var(--secondary-color);
     align-items: center;
     width: 90%;
     margin-inline: auto;
     text-align: center;
-    
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+
+.coin-card:hover {
+    /*background-color: var(--secondary-color);*/
+    /*color: var(--primary-color);*/
+    /*opacity: 0.8;*/
+    /*cursor: pointer;*/
+    transform: scale(1.05);
 }
 
 .coin-card-item {
@@ -23,13 +33,32 @@
 }
 
 .update-button-prices {
-    width: 100%;
+    width: 60%;
+    
 }
 
 .button-flex {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
-    width: 75%;
+    width: 85%;
     margin-inline: auto;
+}
+
+.chart-cont {
+    width: 50%;
+    margin-inline: auto;
+}
+
+.total-value {
+    text-align: center;
+    color: var(--secondary-color);
+    
+}
+
+.portfolio-warn {
+    text-align: center;
+    color: var(--secondary-color);
 }

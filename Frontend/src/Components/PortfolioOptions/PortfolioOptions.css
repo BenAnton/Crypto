@@ -1,0 +1,46 @@
+.options-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-inline: auto;
+    width: 100%;
+}
+
+.option-first {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.option-second {
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.option-second>button {
+    width: 100%;
+}
+
+.option-select {
+    height: 30px;
+    width: 60%;
+    font-size: 1rem;
+    font-weight: 900;
+    padding: 0;
+    border-radius: 5px;
+    color: black;
+    
+}
+
+input[type="number"]::placeholder {
+    font-weight: bold;
+    color: black;
+}

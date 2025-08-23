@@ -1,11 +1,15 @@
-import {useCoins} from "../Context/coinsContext.tsx";
 import type {CoinListCoin} from "../Types/Types.ts";
 import "./PortfolioOptions.css"
 import {useState} from "react";
 
-function PortfolioOptions() {
-    
-    const {coins, loading} = useCoins();
+
+interface PortfolioOptionsProps {
+    coins: CoinListCoin[]
+    loading: boolean
+    fetchPortfolio: () => void
+}
+
+function PortfolioOptions({coins, loading, fetchPortfolio} : PortfolioOptionsProps){
     const [selectedCoin, setSelectedCoin] = useState<CoinListCoin | null>(null);
     const [volume, setVolume] = useState<number>(0);
 
@@ -32,6 +36,7 @@ function PortfolioOptions() {
             });
             const data = await response.json();
             alert(data.message);
+            fetchPortfolio();
         } catch (error) {
             console.error(error);
             alert("Error with buy");
@@ -57,6 +62,7 @@ function PortfolioOptions() {
             });
             const data = await response.json();
             alert(data.message);
+            fetchPortfolio();
         } catch (error) {
             console.error(error);
         }
@@ -69,11 +75,12 @@ function PortfolioOptions() {
             });
             const data = await response.json();
             alert(data.message);
+            fetchPortfolio();
         } catch (error) {}
     }
     
     return (
-        <div>
+        <>
             <div className="options-cont">
                 <div className="option-first">
             <select className="option-select" onChange={(e) => setSelectedCoin(coins.find((c) => c.id === e.target.value) || null)}>
@@ -83,7 +90,7 @@ function PortfolioOptions() {
                 ))}
             </select>
                 
-                <input className="option-select" type="number" placeholder="Volume" onChange={(e) => setVolume(Number(e.target.value))}/>
+                <input className="option-select" type="number" placeholder=" Volume" onChange={(e) => setVolume(Number(e.target.value))}/>
                 </div>
     <div className="option-second">
 
@@ -96,7 +103,7 @@ function PortfolioOptions() {
             </div>
                 
  
-        </div>
+        </>
     )
 }
 

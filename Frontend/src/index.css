@@ -5,10 +5,23 @@
   font-family: 'inter', sans-serif;
 }
 
+  
+  [data-theme="dark"] {
+    --primary-color: #151D32;
+    --secondary-color: #FAFBFB;
+  }
+  
+  [data-theme="light"] {
+
+    --primary-color: #FAFBFB;
+    --secondary-color: #151D32;
+  }
+
+
 html, body {
   height: 100%;
   width: 100%;
-  background-color: #151D32;
+  background-color: var(--primary-color);
 }
 
 .content-cont {
@@ -16,7 +29,7 @@ html, body {
 }
 
 h1 {
-  color: white;
+  color: var(--secondary-color);
   text-align: center;
   font-weight: 900;
 }
@@ -25,8 +38,8 @@ button {
   cursor: pointer;
   width: 200px;
   height: 35px;
-  color: #151D32;
-  background-color: white;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
   padding: 0.5rem;
   border-radius: 5px;
   border: none;
@@ -35,7 +48,7 @@ button {
 }
 
 button:hover {
-  color: white;
-  background-color: #151D32;
-  border: 1px solid white;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  border: 1px solid var(--secondary-color);
 }

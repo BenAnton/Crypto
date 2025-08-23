@@ -2,10 +2,10 @@
     display: flex;
     justify-content: space-between;
     height: 15%;
-    background-color: #151D32;
-    color: #FAFBFB;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     font-family: 'inter', sans-serif;
-    border-bottom: 1px solid #FAFBFB;
+    border-bottom: 1px solid var(--secondary-color);
     margin-bottom: 2rem;
 }
 
@@ -25,10 +25,23 @@
 }
 
 .link {
-    color: #FAFBFB;
+    color: var(--secondary-color);
     text-decoration: none;
 }
 
 .link:hover {
     font-weight: bold;
+}
+
+.header-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    gap: 10px;
+}
+
+.header-options>button {
+    width: 60%;
 }

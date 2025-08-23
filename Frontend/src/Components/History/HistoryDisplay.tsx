@@ -3,23 +3,25 @@ import HistoryCoin from "./HistoryCoin.tsx";
 import type {cryptoHistoryItem} from "../../Types/Types.ts";
 import "./History.css"
 
-function HistoryDisplay() {
-    const [history, setHistory] = useState<cryptoHistoryItem[]>([]);
 
-    useEffect(() => {
-        const fetchHistory = async () => {
-            const response = await fetch("http://localhost:5050/history/historylist/");
-            const jsonData = await response.json();
-            setHistory(jsonData);
-        }
-        fetchHistory();
-    }, []);
+interface HistoryDisplayProps {
+    history: cryptoHistoryItem[];
+    onDeleteItem: (id: string) => void;
+}
+function HistoryDisplay({history, onDeleteItem}: HistoryDisplayProps) {
     
+    
+    if(!history.length) return (
+        <h3 className="history-warn">No history found, please make a transaction to generate some history.</h3>
+    )
     
     return (
     <div className="coin-hist-cont">
         {history.map((item, index,) => (
-            <HistoryCoin key={index} history={item} />
+            <HistoryCoin 
+                key={index} 
+                history={item}
+                onDelete={onDeleteItem}/>
         ))}
     </div>
     );

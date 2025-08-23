@@ -1,24 +1,24 @@
 import type {cryptoHistoryItem} from "../../Types/Types.ts";
 import "./History.css"
+import {useCurrency} from "../../Context/currencyContext.tsx";
+import {
+    useCurrencyConvertor
+} from "../../Helper-Functions/ExchangeHook.tsx";
 
 interface HistoryCoinProps {
     history: cryptoHistoryItem
+    onDelete: (id: string) => void
 }
 
-function HistoryCoin({history}: HistoryCoinProps) {
+function HistoryCoin({history, onDelete}: HistoryCoinProps) {
+   const {currency} = useCurrency();
+   const {getDisplayPrice} = useCurrencyConvertor();
    
-    const handleDelete = async (id: string) => {
-        try {
-            const response = await fetch(`http://localhost:5050/history/${id}`, {
-                method: "DELETE",
-            });
-            const data = await response.json();
-            alert(data.message);
-        } catch (error) {
-            console.error(error);
-            alert("Error with delete");
-        }
+    const handleDelete = () => {
+        onDelete(history._id);
     }
+    
+
     
     return (
         <>
@@ -27,16 +27,16 @@ function HistoryCoin({history}: HistoryCoinProps) {
         <h1 className="history-card-item">
             {history.name}
         </h1>
-            <p className="history-card-item">{history.date}</p>
+            <p className="history-card-item">{new Date(history.date).toDateString()}</p>
             
-            <p className="history-card-item">{history.volume}</p>
+            <p className="history-card-item">{history.volume.toLocaleString()}</p>
 
                 <p className="history-card-item">{history.buy_sell ? "Sell" : "Buy"}</p>
                 <p className="history-card-item">{history.buy_sell 
-                    ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD"}).format(history.sell_price)
-                    : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD"}).format(history.purchase_price)
+                    ? getDisplayPrice(history.sell_price, currency)
+                    : getDisplayPrice(history.purchase_price, currency)
                 }</p>
-                <button onClick={() => handleDelete(history._id)}>Delete</button>
+                <button onClick={handleDelete}>Delete</button>
             </div>  
             </>
     )

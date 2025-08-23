@@ -5,20 +5,31 @@
 }
 
 .coin-hist-card {
-    border: 1px solid white;
+    border: 1px solid var(--secondary-color);
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    color: white;
+    color: var(--primary-color);
     align-items: center;
     width: 90%;
     margin-inline: auto;
     text-align: center;
+    background-color: var(--primary-color);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.coin-hist-card:hover {
+    /*background-color: var(--secondary-color);*/
+    /*color: var(--primary-color);*/
+    /*opacity: 0.8;*/
+    /*cursor: pointer;*/
+    transform: scale(1.05);
 }
 
 .history-card-item {
     width: 20%;
     text-align: center;
+    color: var(--secondary-color);
 }
 
 .history-options-flex {
@@ -27,4 +38,9 @@
     gap: 1rem;
     padding: 1rem;
     margin-bottom: 1rem;
+}
+
+.history-warn {
+    text-align: center;
+    color: var(--secondary-color);
 }

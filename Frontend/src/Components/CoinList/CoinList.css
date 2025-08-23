@@ -10,14 +10,14 @@
     text-align: center;
     font-size: 1.5rem;
     padding: 1rem;
-    color: #FAFBFB;
+    color: var(--secondary-color);
 }
 
 table {
     width: 80%;
     align-items: center;
-    background-color: #151D32;
-    color: #FAFBFB;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     font-family: 'inter', sans-serif;
 }
 
@@ -48,12 +48,16 @@ th {
     font-size: 1rem;
 }
 
+tr {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 tr:hover{
-    background-color: #FAFBFB;
-    color: #151D32;
-    opacity: 0.8;
-    cursor: pointer;   
-    font-weight: bold;
+    /*background-color: var(--secondary-color);*/
+    /*color: var(--primary-color);*/
+    /*opacity: 0.8;*/
+    /*cursor: pointer;*/
+    transform: scale(1.05);
 }
 
 img {
@@ -61,5 +65,5 @@ img {
 }
 
 .table-row {
-    border-bottom: 1px solid #FAFBFB;
+    border-bottom: 1px solid var(--secondary-color);
 }

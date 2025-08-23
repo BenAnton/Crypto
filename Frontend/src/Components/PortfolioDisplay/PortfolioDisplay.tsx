@@ -6,6 +6,7 @@ import type {
 import {useCoins} from "../../Context/coinsContext.tsx";
 import "./PortfolioDisplay.css"
 import PortfolioTotals from "./PortfolioTotals.tsx";
+import PortfolioOptions from "../PortfolioOptions/PortfolioOptions.tsx";
 
 function PortfolioDisplay() {
     const {coins, loading} = useCoins();
@@ -13,22 +14,34 @@ function PortfolioDisplay() {
     const [coinPrices, setCoinPrices] = useState<any>({});
     const [loadingPrices, setLoadingPrices] = useState<boolean>(false);
 
+    
+    
     const totalValue = portfolio.reduce((sum, coin) => {
         const price = coinPrices[coin.id]?.usd || 0;
         return sum + coin.volume * price;
 }, 0)
-console.log(totalValue);
 
-
-    useEffect(() => {
-        const fetchPortfolio = async () => {
+    
+    const fetchPortfolio = async () => {
+        try {
             const response = await fetch("http://localhost:5050/portfolio/");
             const jsonData = await response.json();
             setPortfolio(jsonData);
+        } catch (error) {
+            console.error("Error fetching portfolio", error);
         }
-        fetchPortfolio();
+    };
+    
+    useEffect(() => {
+       fetchPortfolio();
+    }, []);
+
+    useEffect(() => {
+        if (portfolio.length === 0) return;
         fetchPrices();
-    }, [coins]);
+    }, [portfolio]);
+    
+    
 
     const fetchPrices = async () => {
         setLoadingPrices(true);
@@ -49,25 +62,40 @@ console.log(totalValue);
         }
     }
     
-    // console.log("Coin Prices", coinPrices);
-    // console.log("Coins", coins);
     
     return (
         <>
             {loadingPrices && <p>Loading prices...</p>}
+            
             <div className="button-flex">
-                <button className="update-button-prices" onClick={fetchPrices}  disabled={loadingPrices}>{loading ? "Updating..." : "Update Prices"}</button>
-
-            </div>
+                    
+            <PortfolioOptions 
+                coins={coins} 
+                loading={loading}
+                fetchPortfolio={fetchPortfolio}
+            />
             
-        <div className="coin-card-cont">
-            {portfolio.map((coin, index) => (
-            <CoinCard key={index} coin={coin} coinPrices={coinPrices}/>))}
+            <button className="update-button-prices" onClick={fetchPrices}  disabled={loadingPrices}>{loading ? "Updating..." : "Update Prices"}</button>
+            
         </div>
+            { portfolio.length === 0 ?
+                <h3 className="portfolio-warn">No coins in portfolio, please make a transaction.</h3>
+                :
+
+                <div className="coin-card-cont">
+            {portfolio.map((coin, index) => (
+            <CoinCard 
+                key={index} 
+                coin={coin} 
+                coinPrices={coinPrices} 
+                fetchPortfolio={fetchPortfolio} />))}
+
             
+        </div>
+            }
             
-            <PortfolioTotals total={totalValue}/>
-            
+            <PortfolioTotals total={totalValue} portfolio={portfolio}/>
+
             
     </>
             )

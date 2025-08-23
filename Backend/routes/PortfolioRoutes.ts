@@ -156,47 +156,4 @@ router.delete("/all", async (req, res) => {
     }
 })
      
-     
-     
-     // //  Edit coin from portfolio
-     // router.patch('/edit/:id', async (req, res) => {
-     //     try { 
-     //         const {id} = req.params;
-     //         const updates = req.body;
-     //        
-     //         const portfolioCol = getPortfolioCollection();
-     //         const result = await portfolioCol.updateOne(
-     //             {_id: new ObjectId(id) },
-     //             {$set: updates}
-     //         );
-     //         res.status(200).send({ message: "Update Successful" });
-     //     } catch (err) {
-     //         console.error(err);
-     //         res.status(500).send({message: "Error with Update"});
-     //     }
-     // });
-     
-  
-     // // Delete coin from portfolio
-     // router.delete('portfolio/:id', async (req, res) => {
-     //     try {
-     //         const {id} = req.params;
-     //         const portfolioCol = getPortfolioCollection();
-     //        
-     //         const holding = await portfolioCol.findOne({_id: new ObjectId(id)});
-     //         if (!holding) return res.status(404).send("Holding not found");
-     //        
-     //         await portfolioCol.deleteOne({ _id: new ObjectId(id)});
-     //        
-     //         res.status(200).send({message: "Delete Successful"});
-     //         } catch (err) {
-     //             console.error(err);
-     //             res.status(500).send({message: "Error with Delete"});
-     //         }
-     // });   
-     
-     
-
-
-
      export default router;

@@ -5,6 +5,10 @@ import Home from "./Pages/Home.tsx";
 import Portfolio from "./Pages/Portfolio.tsx";
 import History from "./Pages/History.tsx";
 import {CoinsProvider} from "./Context/coinsContext.tsx";
+import {
+    CurrencyProvider
+} from "./Context/currencyContext.tsx";
+import {ThemeProvider} from "./Context/themeContext.tsx";
 
 function App() {
 
@@ -12,21 +16,28 @@ function App() {
   return (
     <>
     <Router>
+        <CurrencyProvider>
+            <ThemeProvider>
         <Header/>
         
         <div className="content-cont">
+            <CoinsProvider> 
                 
             <Routes>
-                    <Route path="/" element={<CoinsProvider><Home/></CoinsProvider>}/>
+                    <Route path="/" element={<Home/>}/>
                 
-                    <Route path="/portfolio" element={<CoinsProvider><Portfolio/></CoinsProvider>}/>
+                    <Route path="/portfolio" element={<Portfolio/>}/>
                 
                     <Route path="/history" element={<History/>}/>
             </Routes>
-               
+                    
+            </CoinsProvider>
+                
     </div> 
         
     <Footer/>
+            </ThemeProvider>
+        </CurrencyProvider>
         </Router>
         
     </>
