@@ -9,6 +9,10 @@ import {
     CurrencyProvider
 } from "./Context/currencyContext.tsx";
 import {ThemeProvider} from "./Context/themeContext.tsx";
+import {
+    AlertProvider
+} from "./Context/AlertContext.tsx"
+import Alert from "./Components/Alert/Alert.tsx";
 
 function App() {
 
@@ -18,6 +22,7 @@ function App() {
     <Router>
         <CurrencyProvider>
             <ThemeProvider>
+                <AlertProvider>
         <Header/>
         
         <div className="content-cont">
@@ -30,12 +35,14 @@ function App() {
                 
                     <Route path="/history" element={<History/>}/>
             </Routes>
-                    
+                
             </CoinsProvider>
                 
     </div> 
         
     <Footer/>
+                    <Alert/>
+                </AlertProvider>
             </ThemeProvider>
         </CurrencyProvider>
         </Router>

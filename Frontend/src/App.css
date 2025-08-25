@@ -4,14 +4,24 @@
     width: 100%;
     min-height: 100vh;
     flex: 1;
-
+    margin: 0 auto;
 }
 
-Header {
-    min-height: 200px;
+header {
+    min-height: 300px;
 }
 
-Footer {
+footer {
     min-height: 100px;
+    
 }
 
+@media screen and (min-width: 1250px) {
+    .content-cont {
+        max-width: 1250px;
+    }
+    
+    header {
+        max-width: 1500px;
+    }
+}

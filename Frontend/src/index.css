@@ -1,3 +1,9 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   box-sizing: border-box;
   margin: 0;
@@ -26,6 +32,7 @@ html, body {
 
 .content-cont {
   margin-block: 1rem;
+  margin: 1 auto;
 }
 
 h1 {
@@ -37,6 +44,7 @@ h1 {
 button {
   cursor: pointer;
   width: 200px;
+  min-width: fit-content;
   height: 35px;
   color: var(--primary-color);
   background-color: var(--secondary-color);
@@ -45,10 +53,26 @@ button {
   border: none;
   font-size: 1rem;
   font-weight: bold;
+  text-wrap: nowrap;
 }
 
 button:hover {
   color: var(--secondary-color);
   background-color: var(--primary-color);
   border: 1px solid var(--secondary-color);
+}
+
+@media screen and (min-width: 1250px) {
+  .content-cont {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
 }

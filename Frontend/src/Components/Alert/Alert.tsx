@@ -1,20 +1,18 @@
 
 import "./Alert.css"
+import {useAlert} from "../../Context/AlertContext.tsx"
 
-interface AlertProps {
-    title: string
-    message: string
-    onClose: () => void
-    isOpen: boolean
-}
-function Alert({title, message, isOpen, onClose}: AlertProps) {
+
+function Alert() {
+    const {alert, isOpen, closeAlert} = useAlert();
+    
     if (!isOpen) return null;
     
     return (
         <div className="alert-cont">
-            <h2 className="alert-title">{title}</h2>
-            <p className="alert-message">{message}</p>
-            <button onClick={onClose}>Dismiss</button>
+            <h2 className="alert-title">{alert.title}</h2>
+            <p className="alert-message">{alert.message}</p>
+            <button onClick={closeAlert}>Dismiss</button>
         </div>
     )
 }

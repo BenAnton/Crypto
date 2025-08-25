@@ -1,7 +1,7 @@
-import type {CoinListCoin} from "../Types/Types.ts";
+import type {CoinListCoin} from "../../Types/Types.ts";
 import "./PortfolioOptions.css"
 import {useState} from "react";
-
+import {useAlert} from "../../Context/AlertContext.tsx";
 
 interface PortfolioOptionsProps {
     coins: CoinListCoin[]
@@ -12,14 +12,13 @@ interface PortfolioOptionsProps {
 function PortfolioOptions({coins, loading, fetchPortfolio} : PortfolioOptionsProps){
     const [selectedCoin, setSelectedCoin] = useState<CoinListCoin | null>(null);
     const [volume, setVolume] = useState<number>(0);
-
+    const {showAlert} = useAlert();
+    
     if (loading) return <p>Loading latest coin data...</p>;
     
     
     const handleBuy = async () => {
-        if (!selectedCoin) return alert("Please select a coin");
-        console.log(selectedCoin);
-        console.log(selectedCoin.id);
+        if (!selectedCoin) return showAlert("Coin Not Selected", "Please select a coin");
         const payload = {
             id: selectedCoin.id,
             name: selectedCoin.name,
@@ -35,17 +34,19 @@ function PortfolioOptions({coins, loading, fetchPortfolio} : PortfolioOptionsPro
                 body: JSON.stringify(payload),
             });
             const data = await response.json();
-            alert(data.message);
+            if(response.ok ){
+                showAlert("Buy Status:", "The buy was successful!"); 
+            }
+            
             fetchPortfolio();
         } catch (error) {
             console.error(error);
-            alert("Error with buy");
+            showAlert("Buy Status:", "The buy was unsuccessful!")
         }
     };
     
     const handleSell = async () => {
         if(!selectedCoin) return alert("Please select a coin");
-        console.log(selectedCoin);
         const payload = {
             id: selectedCoin.id,
             name: selectedCoin.name,
@@ -61,10 +62,14 @@ function PortfolioOptions({coins, loading, fetchPortfolio} : PortfolioOptionsPro
                 body: JSON.stringify(payload),
             });
             const data = await response.json();
-            alert(data.message);
+            if (response.ok) {
+                showAlert("Sell Status:", "Sell successful");  
+            }
+            
             fetchPortfolio();
         } catch (error) {
             console.error(error);
+            showAlert("Sell Status:", "Sell failed")
         }
     }
     
@@ -74,9 +79,11 @@ function PortfolioOptions({coins, loading, fetchPortfolio} : PortfolioOptionsPro
                 method: "DELETE",
             });
             const data = await response.json();
-            alert(data.message);
+            showAlert("Delete Status:", "Delete successful");
             fetchPortfolio();
-        } catch (error) {}
+        } catch (error) {
+            showAlert("Delete Status:", "Delete failed");
+        }
     }
     
     return (
@@ -86,7 +93,7 @@ function PortfolioOptions({coins, loading, fetchPortfolio} : PortfolioOptionsPro
             <select className="option-select" onChange={(e) => setSelectedCoin(coins.find((c) => c.id === e.target.value) || null)}>
                 <option>Select Coin</option>
                 {coins.map((coin: CoinListCoin, index: number) => (
-                    <option key={index} value={coin.id}>{coin.id}</option>
+                    <option key={index} value={coin.id}>{coin.id.charAt(0).toUpperCase() + coin.id.slice(1)}</option>
                 ))}
             </select>
                 

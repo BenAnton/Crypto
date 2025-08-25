@@ -22,26 +22,26 @@ table {
 }
 
 tbody {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
     margin-top: 1rem;
 }
 
 tr, td, th {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-content: center;*/
     text-align: center;
-    width: 100%;
+    /*width: 100%;*/
     font-size: 1rem;
     min-width: fit-content;
 }
 
 td {
-    display: flex;  
-    align-items: center;
-    padding: 0.5rem;
+    /*display: flex;  */
+    /*align-items: center;*/
+    /*padding: 0.5rem;*/
 }
 
 th {
@@ -66,4 +66,28 @@ img {
 
 .table-row {
     border-bottom: 1px solid var(--secondary-color);
+}
+
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    tr, td, th {
+        font-size: 0.8rem;
+    }
+    
+    img {
+     width: 30px;
+    }
+    
+    
+    .coin-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 15%;
+        display: inline-block;
+        vertical-align: middle;
+    }
 }

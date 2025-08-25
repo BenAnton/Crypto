@@ -12,7 +12,7 @@ function Header() {
     }
     
     return (
-        <div className="header-cont">
+        <header className="header-cont">
             <h1 className="header-title">Crypto Currency Portfolio Tracker</h1>
             
             <ul className="nav-list">
@@ -21,11 +21,11 @@ function Header() {
                 <Link className="link" to="history">History</Link>
             </ul>
             <div className="header-options">
-                <button onClick={handleCurrencyChange}>Currency: {currency.toUpperCase()}</button>
-                <button onClick={toggleTheme}>Theme: {theme === "light" ? "DARK" : "LIGHT"}</button>
+                <button className="screen-small-button" onClick={handleCurrencyChange}>Currency: {currency.toUpperCase()}</button>
+                <button className="screen-small-button" onClick={toggleTheme}>Theme: {theme === "light" ? "DARK" : "LIGHT"}</button>
 
             </div>
-        </div>
+        </header>
     )
 }
 

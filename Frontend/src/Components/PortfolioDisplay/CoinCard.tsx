@@ -4,6 +4,7 @@ import type {
 import "./PortfolioDisplay.css"
 import {useCurrencyConvertor} from "../../Helper-Functions/ExchangeHook.tsx";
 import {useCurrency} from "../../Context/currencyContext.tsx";
+import {useAlert} from "../../Context/AlertContext.tsx";
 
 interface CoinCardProps {
     coin: cryptoItemHeld,
@@ -17,6 +18,8 @@ function CoinCard({coin, coinPrices, fetchPortfolio}: CoinCardProps) {
     const price_change_since_buy = (currentPrice * coin.volume) - (coin.purchase_price * coin.volume); 
     const {getDisplayPrice, getDisplayLargeNumber} = useCurrencyConvertor();
     const {currency} = useCurrency();
+    const {showAlert} = useAlert();
+    
     const handleSellAllOfOneCoin = async () => {
         const payload = {
             id: coin.id,
@@ -32,10 +35,14 @@ function CoinCard({coin, coinPrices, fetchPortfolio}: CoinCardProps) {
                 body: JSON.stringify(payload),
             });
             const data = await response.json();
-            alert(data.message);
+            if (response.ok) {
+                showAlert("Sell Status:", "Sell successful");
+            }
+           
             fetchPortfolio();
         } catch (error) {
             console.error(error);
+            showAlert("Sell Status:", "Sell failed");
         }
     } 
     

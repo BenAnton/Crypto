@@ -2,10 +2,11 @@ import HistoryDisplay from "../Components/History/HistoryDisplay.tsx"
 import HistoryOptions from "../Components/History/HistoryOptions.tsx";
 import {useState, useEffect} from "react";
 import type {cryptoHistoryItem} from "../Types/Types.ts";
-
+import {useAlert} from "../Context/AlertContext.tsx";
 
 function History() {
 const [history, setHistory] = useState<cryptoHistoryItem[]>([]);
+const {showAlert} = useAlert();
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -22,7 +23,7 @@ const [history, setHistory] = useState<cryptoHistoryItem[]>([]);
                 method: "DELETE",
             });
             const data = await response.json();
-            alert(data.message);
+            showAlert("Delete Status:", "Delete successful");
             
             if (response.ok) {
                 setHistory([]);
@@ -40,7 +41,7 @@ const [history, setHistory] = useState<cryptoHistoryItem[]>([]);
                 method: "DELETE",
             });
             const data = await response.json();
-            alert(data.message);
+            showAlert("Delete Status:", "Delete successful");
             
             if(response.ok) {
                 setHistory(prevHistory => prevHistory.filter(item => item._id !== id))
@@ -48,7 +49,7 @@ const [history, setHistory] = useState<cryptoHistoryItem[]>([]);
             
         } catch (error) {
             console.error(error);
-            alert("Error with delete");
+            showAlert("Delete Status:", "Delete failed");
         }
     }
     

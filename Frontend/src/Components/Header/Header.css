@@ -1,12 +1,12 @@
 .header-cont {
     display: flex;
     justify-content: space-between;
-    height: 15%;
     background-color: var(--primary-color);
     color: var(--secondary-color);
     font-family: 'inter', sans-serif;
     border-bottom: 1px solid var(--secondary-color);
     margin-bottom: 2rem;
+    padding: 1.5rem;
 }
 
 .nav-list {
@@ -44,4 +44,34 @@
 
 .header-options>button {
     width: 60%;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-list {
+        width: 100%;
+        margin: 1.5rem;
+    }
+    
+    .header-cont {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around ;
+        height: 250px;
+    }
+    
+    .header-options {
+        margin: auto 1rem;
+    }
+
+    
+    button {
+        height: fit-content;
+        width: fit-content;
+        padding: 0.5rem;
+        text-wrap: nowrap;
+    }
+    
+    .screen-small-button {
+        min-width: 250px;
+    }
 }
