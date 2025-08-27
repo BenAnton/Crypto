@@ -17,6 +17,7 @@
     font-weight: bold;
     z-index: 100;
     border: 3px solid var(--secondary-color);
+    gap: 2rem;
 }
 
 @media screen and (max-width: 768px) {

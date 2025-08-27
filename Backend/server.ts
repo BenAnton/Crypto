@@ -29,33 +29,6 @@ app.use('/export', exportRoute)
 
 
 
-
-// const cryptoItemHeld = new mongoose.Schema({
-//     name: String,
-//     img: String,
-//     purchase_price: Number,
-//     current_price: Number,
-//     volume: Number,
-//     total_value: Number,
-//     percentage_change: Number,
-//     price_change: Number,
-//     date: String,
-// });
-//
-// const cryptoHistoryItem = new mongoose.Schema({
-//     name: String,
-//     img: String,
-//     buy_sell: Boolean,
-//     purchase_price: Number,
-//     sell_price: Number,
-//     volume: Number,
-//     date: String,
-// })
-
-// const CryptoItem = mongoose.model('CryptoItem', cryptoItemHeld);
-// const CryptoHistory = mongoose.model('CryptoHistory', cryptoHistoryItem);
-
-
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
